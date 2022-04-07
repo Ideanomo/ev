@@ -2,7 +2,7 @@ import config from './../config/config';
 import app from './express';
 import mongoose from 'mongoose';
 
-const server = app.listen(config.port, (err) => {
+app.listen(config.port, (err) => {
     if (err) {
         console.log(err)
     }
