@@ -25,8 +25,8 @@ describe('GET api/clients', () => {
             .expect(200)
     })
 
-    test('It should return 400 if name email and password not entered at signup', () => {
-        request.post('/api/users').send({
+    test('It should return 400 if all fields are not entered at signup', () => {
+        request.post('/api/clients').send({
             name: "username"
         })
             .expect(400)
