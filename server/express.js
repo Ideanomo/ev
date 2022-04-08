@@ -8,6 +8,8 @@ import Template from './../template';
 import clientRoutes from './routes/client.routes';
 import authRoutes from './routes/auth.routes';
 import devBundle from './devBundle';
+import path from 'path';
+const CURRENT_WORKING_DIRECTORY = process.cwd();
 
 const app = express();
 
@@ -25,5 +27,6 @@ app.use(helmet());
 app.use(cors());
 app.use('/', clientRoutes)
 app.use('/', authRoutes)
+app.use('/dist', express.static(path.join(CURRENT_WORKING_DIRECTORY, 'dist')));
 
 export default app;
