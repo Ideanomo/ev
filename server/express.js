@@ -6,7 +6,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import Template from './../template';
 import clientRoutes from './routes/client.routes';
-// import authRoutes from './routes/auth.routes';
+import authRoutes from './routes/auth.routes';
 import devBundle from './devBundle';
 
 const app = express();
@@ -24,6 +24,6 @@ app.use(compress());
 app.use(helmet());
 app.use(cors());
 app.use('/', clientRoutes)
-// app.use('/', authRoutes)
+app.use('/', authRoutes)
 
 export default app;
