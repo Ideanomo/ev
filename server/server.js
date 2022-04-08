@@ -2,7 +2,7 @@ import config from './../config/config';
 import app from './express';
 import mongoose from 'mongoose';
 
-app.listen(config.port, (err) => {
+const server = app.listen(config.port, (err) => {
     if (err) {
         console.log(err)
     }
@@ -16,3 +16,4 @@ mongoose.connection.on('error', () => {
     throw new Error(`Unable to connect to database: ${config.mongoUri}`)
 })
 
+export default server;

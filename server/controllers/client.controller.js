@@ -1,5 +1,6 @@
 import Client from '../models/client.model';
-import extend from 'lodash/e./../helpers/dbErrorHandler';
+import extend from 'lodash/extend';
+import dbErrorHandler from './../helpers/dbErrorHandler';
 import dayjs from 'dayjs';
 
 const create = async (req, res) => {
@@ -17,6 +18,7 @@ const create = async (req, res) => {
         })
     }
 }
+
 const listClients = async (req, res) => {
     try {
         let clients = await Client.find().select( 'name email company createdDate')
@@ -27,6 +29,7 @@ const listClients = async (req, res) => {
         })
     }
 }
+
 const listClient = async (req, res) => {
     const query = {}
     if (req.query.name) {
