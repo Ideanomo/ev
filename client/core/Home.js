@@ -3,6 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -16,6 +17,9 @@ const useStyles = makeStyles(theme => ({
     },
     media: {
         minHeight: 400
+    },
+    link: {
+        color: theme.palette.secondary.dark
     }
 }))
 
@@ -29,6 +33,9 @@ const Home = () => {
             <CardContent>
                 <Typography variant="body2" component="p">
                     Search for a single client
+                </Typography>
+                <Typography variant="body2" className={classes.link} component={Link} to={"/clients"}>
+                    See all clients
                 </Typography>
             </CardContent>
         </Card>
