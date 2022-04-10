@@ -29,8 +29,8 @@ export default function Clients () {
     return (
         <List dense>
             {clients.map((client, i) => (
-                <ListItem>
-                    <ListItemAvatar key={i}>
+                <ListItem key={i}>
+                    <ListItemAvatar>
                         <Avatar>
                             <Person />
                         </Avatar>
