@@ -37,6 +37,9 @@ const Home = () => {
                 <Typography variant="body2" className={classes.link} component={Link} to={"/clients"}>
                     See all clients
                 </Typography>
+                <Typography variant="body2" className={classes.link} component={Link} to={"/signup"}>
+                    Sign Up
+                </Typography>
             </CardContent>
         </Card>
     )
