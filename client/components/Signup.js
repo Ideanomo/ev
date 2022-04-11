@@ -36,8 +36,12 @@ const useStyles = makeStyles(theme => ({
     },
     submit: {
         margin: 'auto',
-        marginBottom: theme.spacing(2)
-    }
+        marginBottom: theme.spacing(2),
+        color: theme.palette.primary.main
+    },
+    buttonWrapper: {
+        justifyContent: 'center'
+}
 }))
 
 export default function Signup () {
@@ -109,7 +113,9 @@ export default function Signup () {
                         className={classes.textField}
                         value={values.password}
                         onChange={handleChange('password')}
-                        margin={"normal"} />
+                        margin={"normal"}
+                        type="password"
+                    />
                     <br/>
                     {values.error && (<Typography
                         component="p"
@@ -119,7 +125,6 @@ export default function Signup () {
                 </CardContent>
                 <CardActions>
                     <Button
-                    color="secondary"
                     variant="contained"
                     onClick={clickSubmit}
                     className={classes.submit}>
@@ -136,10 +141,10 @@ export default function Signup () {
                         New client account successfully created
                     </DialogContentText>
                 </DialogContent>
-                <DialogActions>
+                <DialogActions className={classes.buttonWrapper}>
                     <Link to="/signin">
                         <Button
-                            color="primary"
+                            className={classes.submit}
                             autoFocus="autoFocus"
                             variant="contained">
                             Sign In
