@@ -36,10 +36,10 @@ export default function Clients () {
                         </Avatar>
                     </ListItemAvatar>
                     <ListItemText
-                        primary={`Name: ${client.name}`}
+                        primary={client.name}
                     />
                     <ListItemText
-                        primary={`Company: ${client.company}`}
+                        primary={client.company}
                         secondary={`Created: ${client.createdDate}`}
                     />
                 </ListItem>
