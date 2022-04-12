@@ -3,7 +3,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
-import { Link } from 'react-router-dom';
+import Search from './../components/Search';
 
 const useStyles = makeStyles(theme => ({
     card: {
@@ -34,6 +34,7 @@ const Home = () => {
                 <Typography variant="body2" component="p">
                     Search for a single client
                 </Typography>
+                <Search />
             </CardContent>
         </Card>
     )

@@ -34,7 +34,7 @@ const listClient = async (req, res) => {
         query.name = {'regex': req.query.name, '$options': 'i'}
     }
     try {
-        let client = await Client.find(query).select('name email company created');
+        let client = await Client.find(query).select('name email company createdDate');
         res.json(client)
     } catch (err) {
         return res.status(400).json({

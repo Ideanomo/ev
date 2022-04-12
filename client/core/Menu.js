@@ -33,16 +33,13 @@ const Menu = () => {
     return (
         <AppBar position="static">
             <Toolbar>
-                <Typography variant="h6" className={classes.title}>
-                    Client Portal
-                </Typography>
                 <Link to="/">
                     <IconButton aria-label="Home" style={isActive("/")}>
                         <HomeIcon/>
                     </IconButton>
                 </Link>
                 <Link to="/clients">
-                    <Button style={isActive("/clients")}>Clients</Button>
+                    <Button style={isActive("/clients")}>Show Clients</Button>
                 </Link>
                 {!auth.isAuthenticated() && (<span>
               <Link to="/signup">

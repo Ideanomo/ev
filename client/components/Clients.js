@@ -18,7 +18,6 @@ export default function Clients () {
                 if (data && data.error) {
                     console.log(data.error);   
                 } else {
-                    console.log('Data:', data);
                     setClients(data);
                 }
             })
