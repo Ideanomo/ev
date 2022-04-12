@@ -9,7 +9,7 @@ const signin = async (req, res) => {
 
         if (!client) {
             return res.status(401).json({
-                error: "Client no fount"
+                error: "Client no found"
             })
         }
 

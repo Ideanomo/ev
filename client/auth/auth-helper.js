@@ -6,6 +6,18 @@ const auth = {
         cb();
     },
 
+    isAuthenticated () {
+      if (typeof window == "undefined") {
+          return false
+      }
+
+      if (sessionStorage.getItem("jwt")) {
+        return JSON.parse(sessionStorage.getItem("jwt"))
+      } else {
+          return false;
+      }
+    },
+
     clearJWT (cb) {
         if (typeof window !== "undefined") {
             sessionStorage.removeItem('jwt')

@@ -34,15 +34,6 @@ const Home = () => {
                 <Typography variant="body2" component="p">
                     Search for a single client
                 </Typography>
-                <Typography variant="body2" className={classes.link} component={"p"}>
-                    <Link to="/clients"> See all clients</Link>
-                </Typography>
-                <Typography variant="body2" className={classes.link} component={"p"}>
-                     <Link to="/signup">Signup</Link>
-                </Typography>
-                <Typography variant="body2" className={classes.link} component={"p"}>
-                    <Link to="/signin">Signin</Link>
-                </Typography>
             </CardContent>
         </Card>
     )

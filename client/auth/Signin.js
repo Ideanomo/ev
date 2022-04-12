@@ -63,7 +63,6 @@ export default function Signin () {
                 })
             }
         })
-        console.log('Click!');
     }
 
     const handleChange = name => event => {
