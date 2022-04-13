@@ -1,19 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useRef} from 'react';
 import { listClient } from './api-clients';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
-import SearchIcon from '@material-ui/icons/Search'
-import Typography from '@material-ui/core/Typography';
-import Avatar from '@material-ui/core/Avatar';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import ListItemText from '@material-ui/core/ListItemText';
-import Person from '@material-ui/icons/Person'
-
+import SearchIcon from '@material-ui/icons/Search';
+import SearchResults from './SearchResults';
+import Typography from "@material-ui/core/Typography";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -29,6 +23,7 @@ const useStyles = makeStyles(theme => ({
         marginBottom: '10px',
         marginTop: theme.spacing(5),
         width: 300,
+        position: 'relative'
     }),
     title: {
         marginTop: theme.spacing(3),
@@ -45,39 +40,70 @@ const useStyles = makeStyles(theme => ({
     },
     iconButton: {
         padding: 10,
+    },
+    closeIcon: {
+        position: 'absolute',
+        left: '300px',
+        bottom: '160px'
     }
 }))
 
 export default function Search () {
     const classes = useStyles();
+    const inputRef = useRef();
     const [value, setValue] = useState({
         name: '',
-        details: [],
-        searched: false
+        results: [],
+        searched: false,
+        foundUser: false
+
     })
+    const [open, setOpen] = React.useState(false);
+
 
     const handleChange = name => event => {
         setValue({
             ...value,
             [name]: event.target.value,
-            details: []
+            results: []
         })
     }
 
+    const handleClose = () => {
+        inputRef.current.value = '';
+
+        if (value.searched) {
+            setValue({
+                ...value,
+                results: [],
+                name: '',
+                searched: false
+            })
+        }
+    };
+
     const search = () => {
         if (value.name) {
-            listClient(value.name).then((data) => {
+            listClient(value.name || undefined).then((data) => {
                 if (data.error) {
                     console.log(data.error)
-                } else {
-                    setValue(value => ({
+                } else if(data[0].name === value.name) {
+                     setValue(value => ({
                         ...value,
-                        details: data,
-                        searched: true
+                        results: data,
+                        searched: true,
+                         foundUser: true
+                    }))
+                }
+                else if (value.name !== data[0].name) {
+                    setValue(() => ({
+                        ...value,
+                        foundUser: false
                     }))
                 }
             })
         }
+
     }
 
     const enterKey = (event) => {
@@ -97,6 +123,7 @@ export default function Search () {
                     type="search"
                     onKeyDown={enterKey}
                     onChange={handleChange('name')}
+                    ref={inputRef}
                 />
                 <IconButton
                     className={classes.iconButton}
@@ -106,32 +133,13 @@ export default function Search () {
                     <SearchIcon/>
                 </IconButton>
             </Paper>
-
-            {(value.details.length === 0) ?
-                <Paper className={classes.root} elevation={4}>
-                    <Typography component="p" className={classes.promptTitle}>
-                        No profile. Please search for client
-                    </Typography>
-                </Paper> :
-                <Paper className={classes.profile} elevation={4}>
-                    <Typography variant="h6" className={classes.title}>
-                        Profile
-                    </Typography>
-                    <List dense>
-                        <ListItem>
-                            <ListItemAvatar>
-                                <Avatar>
-                                    <Person />
-                                </Avatar>
-                            </ListItemAvatar>
-                            <ListItemText primary={value.details[0].name} secondary={value.details.email}/>
-                        </ListItem>
-                        <Divider />
-                        <ListItem>
-                            <ListItemText primary={"Joined: " + value.details[0].createdDate}/>
-                        </ListItem>
-                    </List>
-                </Paper>}
+            {(!value.foundUser) && (<Typography variant="h4" className={classes.title}>No clients found! :(</Typography>)}
+            <Divider/>
+            <SearchResults
+                results={value.results}
+                searched={value.searched}
+                onClick={handleClose}
+            />
         </div>
     )
 }

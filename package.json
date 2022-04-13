@@ -23,6 +23,7 @@
     "lodash": "^4.17.21",
     "mongodb": "^3.5.5",
     "mongoose": "^5.11.14",
+    "prop-types": "^15.8.1",
     "query-string": "^7.1.1",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
