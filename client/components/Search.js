@@ -3,11 +3,10 @@ import { listClient } from './api-clients';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Card';
 import Divider from '@material-ui/core/Divider';
-import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
 import SearchResults from './SearchResults';
-import Typography from "@material-ui/core/Typography";
+import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -54,12 +53,8 @@ export default function Search () {
     const [value, setValue] = useState({
         name: '',
         results: [],
-        searched: false,
-        foundUser: false
-
+        searched: false
     })
-    const [open, setOpen] = React.useState(false);
-
 
     const handleChange = name => event => {
         setValue({
@@ -71,6 +66,7 @@ export default function Search () {
 
     const handleClose = () => {
         inputRef.current.value = '';
+console.log('Input value: ', inputRef.current)
 
         if (value.searched) {
             setValue({
@@ -84,26 +80,19 @@ export default function Search () {
 
     const search = () => {
         if (value.name) {
-            listClient(value.name || undefined).then((data) => {
-                if (data.error) {
-                    console.log(data.error)
-                } else if(data[0].name === value.name) {
-                     setValue(value => ({
-                        ...value,
-                        results: data,
-                        searched: true,
-                         foundUser: true
-                    }))
-                }
-                else if (value.name !== data[0].name) {
-                    setValue(() => ({
-                        ...value,
-                        foundUser: false
-                    }))
-                }
+            listClient(value.name || undefined)
+                .then((data) => {
+                    if (data.error) {
+                        console.log(data.error)
+                    } else {
+                        setValue(value => ({
+                            ...value,
+                            results: data.filter(client => client.name === value.name),
+                            searched: true
+                        }))
+                    }
             })
         }
-
     }
 
     const enterKey = (event) => {
@@ -114,9 +103,9 @@ export default function Search () {
     }
 
     return (
-        <div>
+        <>
             <Paper className={classes.root} elevation={1}>
-                <InputBase
+                <TextField
                     id="search"
                     className={classes.input}
                     placeholder="Enter client"
@@ -124,6 +113,7 @@ export default function Search () {
                     onKeyDown={enterKey}
                     onChange={handleChange('name')}
                     ref={inputRef}
+                    variant="standard"
                 />
                 <IconButton
                     className={classes.iconButton}
@@ -133,13 +123,12 @@ export default function Search () {
                     <SearchIcon/>
                 </IconButton>
             </Paper>
-            {(!value.foundUser) && (<Typography variant="h4" className={classes.title}>No clients found! :(</Typography>)}
             <Divider/>
             <SearchResults
                 results={value.results}
                 searched={value.searched}
                 onClick={handleClose}
             />
-        </div>
+        </>
     )
 }

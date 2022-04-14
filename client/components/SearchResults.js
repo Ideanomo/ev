@@ -75,15 +75,15 @@ export default function SearchResults({results, searched, onClick}) {
                                         <Person />
                                     </Avatar>
                                 </ListItemAvatar>
-                                <ListItemText primary={results[0].name} secondary={results.email}/>
+                                <ListItemText primary={results[0].name} secondary={results[0].email}/>
                             </ListItem>
                             <Divider />
                             <ListItem>
-                                <ListItemText primary={"Joined: " + results[0].createdAt}/>
+                                <ListItemText primary={"Joined: " + results[0].createdDate}/>
                             </ListItem>
                         </List>
-                    </Paper>}
-                </div>) : searched && (<Typography variant="subheading" component="h4" className={classes.title}>No clients found! :(</Typography>)}
+                    </Paper>
+                </div>) : searched && (<Typography className={classes.title}>No clients found! :(</Typography>)}
         </div>)
 }
 

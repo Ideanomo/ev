@@ -33,9 +33,11 @@ const listClient = async (req, res) => {
     if (req.query.name) {
         query.name = {'regex': req.query.name, '$options': 'i'}
     }
+
     try {
-        let client = await Client.find(query).select('name email company createdDate');
-        res.json(client)
+        let client = await Client.find(query).select('name email company createdDate')
+            .then(client => res.json(client))
+
     } catch (err) {
         return res.status(400).json({
             error: dbErrorHandler.getErrorMessage(err)
