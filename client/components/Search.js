@@ -1,4 +1,4 @@
-import React, { useState, useRef} from 'react';
+import React, { useState } from 'react';
 import { listClient } from './api-clients';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Card';
@@ -49,7 +49,6 @@ const useStyles = makeStyles(theme => ({
 
 export default function Search () {
     const classes = useStyles();
-    const inputRef = useRef();
     const [value, setValue] = useState({
         name: '',
         results: [],
@@ -65,9 +64,6 @@ export default function Search () {
     }
 
     const handleClose = () => {
-        inputRef.current.value = '';
-console.log('Input value: ', inputRef.current)
-
         if (value.searched) {
             setValue({
                 ...value,
@@ -112,7 +108,6 @@ console.log('Input value: ', inputRef.current)
                     type="search"
                     onKeyDown={enterKey}
                     onChange={handleChange('name')}
-                    ref={inputRef}
                     variant="standard"
                 />
                 <IconButton
